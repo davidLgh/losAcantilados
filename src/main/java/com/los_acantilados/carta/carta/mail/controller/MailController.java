@@ -27,8 +27,9 @@ public class MailController {
      String name = mailDTO.getName();
      String email = mailDTO.getEmail();
 
+     //TODO: poner como TO el correo de Los Acantilados
      String newMessage = "Mensaje: \n   " + message + "\n\nDatos de contacto: " + "\nNombre: " + name + "\nEmail: " + email;
-     mailService.sendMail("david.a.lencina@gmail.com", "david.a.lencina@gmail.com", subject, newMessage);
+     mailService.sendMail("senderlosacantilados@gmail.com", "senderlosacantilados@gmail.com", subject, newMessage);
      return ResponseEntity.status(HttpStatus.OK).body(mailDTO);
  }
 }

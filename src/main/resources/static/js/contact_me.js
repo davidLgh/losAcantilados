@@ -15,13 +15,11 @@ $(function () {
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
-
             let data = {
                 name: name,
                 email: email,
                 message: message
             };
-
             const response = await fetch('/email/sendMail', {
                 method: 'POST',
                 headers: {

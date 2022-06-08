@@ -17,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("/auth")
 public class UserAuthController {
@@ -39,21 +42,21 @@ public class UserAuthController {
     private UserRepository userRepository;
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id){
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) throws InterruptedException, ExecutionException {
         this.userRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
     @PostMapping("/singup")
-    public ResponseEntity<AuthenticationResponse> singUp(@RequestBody UserDTO user) throws Exception{
+    public ResponseEntity<AuthenticationResponse> singUp(@RequestBody UserDTO user) throws Exception, InterruptedException, ExecutionException {
 
         this.userDetailsService.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/singin")
-    public ResponseEntity<AuthenticationResponse> singIn(@RequestBody AuthenticationRequest authRequest) throws Exception{
+    public ResponseEntity<AuthenticationResponse> singIn(@RequestBody AuthenticationRequest authRequest) throws Exception, InterruptedException, ExecutionException {
 
         UserDetails userDetails;
 
