@@ -422,17 +422,22 @@ function bienvenidoUser() {
 }
 //Scroll automatico al elemento creado/eliminado
 function scrollIntoChanges(){
+
     setTimeout(function () {
         let id = localStorage.idCategoriaNueva;
         let element = document.getElementById("("+id+")");
+        if(element){
         element.scrollIntoView({block: "start", behavior: "smooth"});
-        localStorage.removeItem('idCategoriaNueva');
+                localStorage.removeItem('idCategoriaNueva');
+                }
     }, 2100);
     setTimeout(function () {
         let id = localStorage.idProducto;
         let element = document.getElementById("productoCat"+id);
+        if(element){
         element.scrollIntoView({block: "start", behavior: "smooth"});
-        localStorage.removeItem('idProducto');
+                localStorage.removeItem('idProducto');
+                 }
     }, 2200);
 }
 
