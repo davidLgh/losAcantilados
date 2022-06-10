@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     String[] resources = new String[]{
-            "/css/**","/img/**","/js/**","/mail/**","/fonts/**","/admin.html/**", "/email/sendMail","/email/incoming-messages"
+            "/css/**","/img/**","/js/**","/mail/**","/fonts/**","/admin.html/**", "/email/sendMail"
     };
 
 
