@@ -25,4 +25,7 @@ public class MailService {
 
         javaMailSender.send(mailMessage);
     }
+
+    public void incomingMail(String to, String from, String plain, String subject) {
+    }
 }

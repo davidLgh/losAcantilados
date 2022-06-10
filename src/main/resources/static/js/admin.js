@@ -242,7 +242,7 @@ async function cargarProductosHtml() {
 //Acciones del MODAL EDITAR CATEGORIA
 function abrirCatModal(id) {
     let modales = document.getElementsByClassName('cat-modal-container');
-    let modal = modales[id - 1]
+    let modal = modales.namedItem("cat-modal-container("+id+")"); //Busco en la coleccion HTML el item con id..
     modal.classList.add('show-modal');
 }
 function cerrarCatModal() {

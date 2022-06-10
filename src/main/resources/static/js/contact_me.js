@@ -20,7 +20,7 @@ $(function () {
                 email: email,
                 message: message
             };
-            const response = await fetch('/email/sendMail', {
+            const response = await fetch('/email/incoming_messages', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
