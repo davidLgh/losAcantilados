@@ -15,11 +15,18 @@ $(function () {
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
+            /*
             let data = {
                 name: name,
                 email: email,
                 message: message
             };
+            */
+            let data = {
+                           plain: "David",
+                           subject:"Comentarios desde tu Menú Web"
+                       };
+
             const response = await fetch('/email/incoming-messages', {
                 method: 'POST',
                 headers: {
