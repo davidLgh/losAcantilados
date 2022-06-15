@@ -74,7 +74,7 @@ hr {
 	width: 70px;
 	text-align: center;
 	position: relative;
-	background: #8eb640;
+	background: #8eb640 !important;
 	margin: 0;
 	margin-bottom: 40px;
 	border: 0;
