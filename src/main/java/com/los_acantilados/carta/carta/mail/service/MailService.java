@@ -35,7 +35,9 @@ public class MailService {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true,"UTF-8");
 
-        messageHelper.setTo("senderlosacantilados@hotmail.com");
+        messageHelper.setTo(new String[]{"losacantiladosproductos@gmail.com","claudiopetti@hotmail.com","senderlosacantilados@hotmail.com"});
+        //messageHelper.setTo("senderlosacantilados@hotmail.com");
+
         messageHelper.setFrom("senderlosacantilados@hotmail.com");
         messageHelper.setSubject("Comentarios desde tu Menú Web");
         messageHelper.setText(htmlContext, true);

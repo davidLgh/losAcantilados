@@ -905,4 +905,6 @@ li.btn-admin :hover{
     justify-content: space-between;
     width: 95%;
 }
-
+#btn-salir{
+    font-weight: 400;
+}
