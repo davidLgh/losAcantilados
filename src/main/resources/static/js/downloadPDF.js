@@ -1,3 +1,4 @@
+/*
 async function generatePDF(){
     //convert HTML + CSS --> PNG (html2canvas)
     //add PNG to PDF (jsPDF)
@@ -24,7 +25,7 @@ async function generatePDF(){
 
     document.getElementById("downloadButton").innerHTML = "Descargar";
 }
-/*
+*/
 async function generatePDF(){
     //convert HTML + CSS --> PNG (html2canvas)
     //add PNG to PDF (jsPDF)
@@ -50,4 +51,3 @@ async function generatePDF(){
 
     document.getElementById("downloadButton").innerHTML = "Descargar";
 }
-*/
