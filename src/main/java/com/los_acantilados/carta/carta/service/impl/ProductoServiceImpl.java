@@ -27,8 +27,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     public List<ProductoDTO> getAllProductos(Long idCategoria) {
-        List <ProductoEntity> entities = productoRepository.findByCategoriaId(idCategoria);
-        List <ProductoDTO> dtos = productoMapper.etityListToDtoList(entities);
+        List<ProductoEntity> entities = productoRepository.findByCategoriaId(idCategoria);
+        List<ProductoDTO> dtos = productoMapper.etityListToDtoList(entities);
         return dtos;
     }
 
@@ -53,8 +53,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     public List<ProductoDTO> getAll() {
-        List <ProductoEntity> entities = productoRepository.findAll();
-        List <ProductoDTO> dtos = productoMapper.etityListToDtoList(entities);
+        List<ProductoEntity> entities = productoRepository.findAll();
+        List<ProductoDTO> dtos = productoMapper.etityListToDtoList(entities);
         return dtos;
     }
 
