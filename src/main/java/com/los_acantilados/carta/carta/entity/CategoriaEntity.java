@@ -17,6 +17,10 @@ public class CategoriaEntity {
 
     private String nombre;
 
+    private String orden;
+
+    private String visibilidad;
+
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "idCategoria")
     private List<ProductoEntity> productos;
 

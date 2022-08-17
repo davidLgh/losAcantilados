@@ -6,7 +6,7 @@ $(document).ready(function () {
     cargarProductosHtml();
 
 });
-function accionesOnLoad(){
+function accionesOnLoad() {
     unauth();
     scrollIntoChanges();
 }
@@ -29,11 +29,16 @@ async function cargarCategoriasHtml() {
     for (let categoria of categorias) {
 
         /*ELementos del modal*/
-        let inputNombre = '<div  class="input-group mb-3"><span class="input-group-text">Nombre de la categoría </span><input type="text" id="txtCatNombre' + categoria.id + '" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
+        let inputNombre = '<div  class="input-group mb-3"><span class="input-group-text">Nombre de la categoría </span><input type="text" id="txtCatNombre' + categoria.id + '" value= "' + categoria.nombre + '" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
+        let inputOrden = '<div  class="input-group mb-3"><span class="input-group-text">Orden nº</span><input type="text" id="txtCatOrden' + categoria.id + '" value= "' + categoria.orden + '" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
+        let checkVisibilidad = '<div  class="input-group mb-3 visibility-class"><span class="input-group-text">Visibilidad </span><input type="checkbox" id="visibilidadCat' + categoria.id + '" value="true" checked="true" class="visibility-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
+
         let btnCerrar = '<div class="btns-modal"><div class="boton-cerrar" id="btn-cerrar" onclick="cerrarCatModal()"><i class="bx bx-x"></i></div>'
         let btnGuardar = '<div onclick ="editarCategoria(' + categoria.id + ')" class="boton-guardar-producto" id="btn-guardar"><i class="bx bx-save"></i></div></div>'
         let modalHtml = '<div class="cat-modal-container" id="cat-modal-container(' + categoria.id + ')" ><div class="cat-modal-editar">' +
             inputNombre + '' +
+            inputOrden + '' +
+            checkVisibilidad + '' +
             btnCerrar + '' +
             btnGuardar + '</div></div>'
 
@@ -50,7 +55,7 @@ async function cargarCategoriasHtml() {
 
 
         /*CATEGORIA HTM*/
-        let categoriaHtml = '<div class="col-xs-12 col-sm-6"><div class="menu-section" id="(' + categoria.id + ')" value="(' + categoria.id + ')"><h2 class="menu-section-title">' + categoria.nombre + '<div class="menu-actions-cat"><a class= "catDelete" onclick ="categoriaDelete(' + categoria.id + ')";"><i class="gg-trash"></i></a><a onclick = "abrirCatModal(' + categoria.id + ')" class="editarCat" ;"><i class="gg-pen"></i></a></div></h2><hr><div id="productoCat' + categoria.id + '" class="menu-item"></div>' + botonNuevo + '</div></div>'
+        let categoriaHtml = '<div class="col-xs-12 col-sm-6"><div class="menu-section" id="(' + categoria.id + ')" value="(' + categoria.id + ')"><h2 class="menu-section-title">(' + categoria.orden + ') ' + categoria.nombre + '<div class="menu-actions-cat"><a class= "catDelete" onclick ="categoriaDelete(' + categoria.id + ')";"><i class="gg-trash"></i></a><a onclick = "abrirCatModal(' + categoria.id + ')" class="editarCat" ;"><i class="gg-pen"></i></a></div></h2><hr><div id="productoCat' + categoria.id + '" class="menu-item"></div>' + botonNuevo + '</div></div>'
 
         listaDeCategorias += categoriaHtml + modalHtml;
     }
@@ -242,7 +247,7 @@ async function cargarProductosHtml() {
 //Acciones del MODAL EDITAR CATEGORIA
 function abrirCatModal(id) {
     let modales = document.getElementsByClassName('cat-modal-container');
-    let modal = modales.namedItem("cat-modal-container("+id+")"); //Busco en la coleccion HTML el item con id..
+    let modal = modales.namedItem("cat-modal-container(" + id + ")"); //Busco en la coleccion HTML el item con id..
     modal.classList.add('show-modal');
 }
 function cerrarCatModal() {
@@ -256,9 +261,18 @@ async function editarCategoria(id) {
         return;
     }
     let datos = {};
-    let idDelHtml = "txtCatNombre" + id;
+    let idDelHtmlNombre = "txtCatNombre" + id;
+    let idDelHtmlOrden = "txtCatOrden" + id;
+    let idDelHtmlVisibilidad = "visibilidadCat" + id;
 
-    datos.nombre = document.getElementById(idDelHtml).value;
+    datos.nombre = document.getElementById(idDelHtmlNombre).value;
+    datos.orden = document.getElementById(idDelHtmlOrden).value;
+    if (document.getElementById(idDelHtmlVisibilidad).checked) {
+        datos.visibilidad = document.getElementById(idDelHtmlVisibilidad).value;
+    } else {
+        datos.visibilidad = "false";
+    }
+
     const request = await fetch('/categorias/' + id, {
         method: 'PUT',
         headers: {
@@ -274,7 +288,7 @@ async function editarCategoria(id) {
     location.reload();
 }
 async function categoriaDelete(id) {
-    
+
     if (!confirm('¿Eliminar la categoría? Se eliminarán todos los productos y no se podrán recuperar.')) {
         return;
     }
@@ -288,6 +302,7 @@ async function categoriaDelete(id) {
     });
     location.reload();
 }
+
 //Acciones del MODAL NUEVA CATEGORIA
 function abrirModalCategoriaNueva() {
     let modal = document.getElementById('nueva-cat-modal');
@@ -314,6 +329,7 @@ async function crearNuevaCategoria() {
     localStorage.idCategoriaNueva = categoria.id;
     location.reload();
 }
+
 //Acciones del MODAL PRODUCTO
 async function productoDelete(id, idCategoria) {
 
@@ -371,6 +387,7 @@ async function editarProducto(id, idCategoria) {
 
     location.reload();
 }
+
 //Acciones del MODAL NUEVO PRODUCTO
 function abrirProductoNuevoModal(id) {
     let idModal = "producto-nuevo-modal-container" + id;
@@ -402,6 +419,7 @@ async function nuevoProducto(id) {
     localStorage.idProducto = producto.idCategoria;
     location.reload();
 }
+
 //Comprobar si ingreso con login o no
 function unauth() {
     // simulamos tiempo de carga
@@ -415,29 +433,31 @@ function unauth() {
     }
 
 }
+
 //Mensaje de bienvenida personalizado
 function bienvenidoUser() {
     let welcomeHtml = document.getElementById('welcome-user')
     welcomeHtml.innerHTML = "Bienvenido " + localStorage.user + "!";
 }
+
 //Scroll automatico al elemento creado/eliminado
-function scrollIntoChanges(){
+function scrollIntoChanges() {
 
     setTimeout(function () {
         let id = localStorage.idCategoriaNueva;
-        let element = document.getElementById("("+id+")");
-        if(element){
-        element.scrollIntoView({block: "start", behavior: "smooth"});
-                localStorage.removeItem('idCategoriaNueva');
-                }
+        let element = document.getElementById("(" + id + ")");
+        if (element) {
+            element.scrollIntoView({ block: "start", behavior: "smooth" });
+            localStorage.removeItem('idCategoriaNueva');
+        }
     }, 2100);
     setTimeout(function () {
         let id = localStorage.idProducto;
-        let element = document.getElementById("productoCat"+id);
-        if(element){
-        element.scrollIntoView({block: "start", behavior: "smooth"});
-                localStorage.removeItem('idProducto');
-                 }
+        let element = document.getElementById("productoCat" + id);
+        if (element) {
+            element.scrollIntoView({ block: "start", behavior: "smooth" });
+            localStorage.removeItem('idProducto');
+        }
     }, 2200);
 }
 

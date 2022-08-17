@@ -11,7 +11,6 @@ async function cerrarSesion() {
     window.location.href="index.html";
 }
 
-//TODO: CREAR CRUD DE USUARIOS CON NUEVA VISTA
 async function nuevoUsuario(){
     let datos = {};
     datos.username = document.getElementById('inputUsuario').value;
@@ -28,7 +27,6 @@ async function nuevoUsuario(){
     const response = await request.text();
     cerrarLoginModal();
 }
-//TODO: FALTA CONSEGUIR EL ID DEL USUARIO ACTIVO Y DISPARAR LA FUNCION
 async function eliminarCuenta(id){
     if (!confirm('¿Eliminar el usuario?')) {
         return;

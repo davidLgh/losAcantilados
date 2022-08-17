@@ -908,3 +908,17 @@ li.btn-admin :hover{
 #btn-salir{
     font-weight: 400;
 }
+
+.visibility-class{
+	display: flex;
+    align-items: center;
+}
+
+.visibility-input{
+	position: relative;
+    z-index: 2;
+    float: left;    
+    width: 19px;
+    height: 30px;
+    left: 164px;
+}

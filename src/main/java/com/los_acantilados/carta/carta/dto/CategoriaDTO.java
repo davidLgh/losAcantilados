@@ -13,4 +13,7 @@ public class CategoriaDTO {
 
     private String nombre;
 
+    private String orden;
+
+    private String visibilidad;
 }

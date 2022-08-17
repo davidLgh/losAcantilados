@@ -22,6 +22,8 @@ public class CategoriaMapper {
     public CategoriaDTO categoriaEntityToDto(CategoriaEntity entity){
         CategoriaDTO dto = new CategoriaDTO();
         dto.setNombre(entity.getNombre());
+        dto.setOrden(entity.getOrden());
+        dto.setVisibilidad(entity.getVisibilidad());
         dto.setId(entity.getId());
         return dto;
     }
@@ -35,6 +37,8 @@ public class CategoriaMapper {
 
     public CategoriaEntity setCategoriaEntity(CategoriaEntity entitySearched, CategoriaDTO dtoToUse) {
         entitySearched.setNombre(dtoToUse.getNombre());
+        entitySearched.setOrden(dtoToUse.getOrden());
+        entitySearched.setVisibilidad(dtoToUse.getVisibilidad());
         return entitySearched;
     }
 

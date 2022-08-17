@@ -44,6 +44,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         categoriaRepository.deleteById(id);
     }
 
+
     public CategoriaDTO update(Long id, CategoriaDTO dtoToUse) {
         Optional<CategoriaEntity> optional = categoriaRepository.findById(id);
         CategoriaEntity entitySearched = optional.get();
