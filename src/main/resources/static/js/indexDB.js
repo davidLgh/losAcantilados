@@ -44,7 +44,7 @@ async function cargarProductosHtml() {
   for (let producto of productos) {
     //comprobar que el div de la categoria existe en el DOM
     let catTarget = "(" + producto.idCategoria + ")";
-    if (document.body.contains(document.getElementById(catTarget))) {
+    if (document.body.contains(document.getElementById(catTarget)) & producto.precio > 0) {
       // por cada producto idCategoria
       let productoCat = 'productoCat' + producto.idCategoria;
       // Creo atributos del producto
