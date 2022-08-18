@@ -9,6 +9,23 @@ $(document).ready(function () {
 function accionesOnLoad() {
     unauth();
     scrollIntoChanges();
+    //formato de categoria si no va a ser visible
+    let uncheckedVisibilityItems = document.querySelectorAll('.visible-false');
+    uncheckedVisibilityItems.forEach(item => {
+        item.style.color = "#4444442e";
+    });
+
+    for (let nodo of uncheckedVisibilityItems) {
+        let parentNode = nodo.nextSibling.nextSibling.childNodes;
+        for (let children of parentNode) {
+            if (children.classList == "menu-actions" || children.classList == "modal-container") {
+
+            } else {
+                children.style.color = "#4444442e";
+            }
+        }
+    }
+
 }
 async function cargarCategoriasHtml() {
     const request = await fetch('/categorias', {
@@ -23,16 +40,17 @@ async function cargarCategoriasHtml() {
 
     let listaDeCategorias = '';
 
-
-
-
     for (let categoria of categorias) {
 
         /*ELementos del modal*/
         let inputNombre = '<div  class="input-group mb-3"><span class="input-group-text">Nombre de la categoría </span><input type="text" id="txtCatNombre' + categoria.id + '" value= "' + categoria.nombre + '" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
         let inputOrden = '<div  class="input-group mb-3"><span class="input-group-text">Orden nº</span><input type="text" id="txtCatOrden' + categoria.id + '" value= "' + categoria.orden + '" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
-        let checkVisibilidad = '<div  class="input-group mb-3 visibility-class"><span class="input-group-text">Visibilidad </span><input type="checkbox" id="visibilidadCat' + categoria.id + '" value="true" checked="true" class="visibility-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
-
+        let checkVisibilidad = "";
+        if (categoria.visibilidad == "true") {
+            checkVisibilidad = '<div  class="input-group mb-3 visibility-class"><span class="input-group-text">Visibilidad </span><input type="checkbox" id="visibilidadCat' + categoria.id + '" value="true" class="visibility-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" checked="true"></div>'
+        } else {
+            checkVisibilidad = '<div  class="input-group mb-3 visibility-class"><span class="input-group-text">Visibilidad </span><input type="checkbox" id="visibilidadCat' + categoria.id + '" value="true" class="visibility-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
+        }
         let btnCerrar = '<div class="btns-modal"><div class="boton-cerrar" id="btn-cerrar" onclick="cerrarCatModal()"><i class="bx bx-x"></i></div>'
         let btnGuardar = '<div onclick ="editarCategoria(' + categoria.id + ')" class="boton-guardar-producto" id="btn-guardar"><i class="bx bx-save"></i></div></div>'
         let modalHtml = '<div class="cat-modal-container" id="cat-modal-container(' + categoria.id + ')" ><div class="cat-modal-editar">' +
@@ -55,11 +73,9 @@ async function cargarCategoriasHtml() {
 
 
         /*CATEGORIA HTM*/
-        let categoriaHtml = '<div class="col-xs-12 col-sm-6"><div class="menu-section" id="(' + categoria.id + ')" value="(' + categoria.id + ')"><h2 class="menu-section-title">(' + categoria.orden + ') ' + categoria.nombre + '<div class="menu-actions-cat"><a class= "catDelete" onclick ="categoriaDelete(' + categoria.id + ')";"><i class="gg-trash"></i></a><a onclick = "abrirCatModal(' + categoria.id + ')" class="editarCat" ;"><i class="gg-pen"></i></a></div></h2><hr><div id="productoCat' + categoria.id + '" class="menu-item"></div>' + botonNuevo + '</div></div>'
-
+        let categoriaHtml = '<div class="col-xs-12 col-sm-6"><div class="menu-section" id="(' + categoria.id + ')" value="(' + categoria.id + ')"><h2 class="menu-section-title visible-' + categoria.visibilidad + '">(' + categoria.orden + ') ' + categoria.nombre + '<div class="menu-actions-cat"><a class= "catDelete" onclick ="categoriaDelete(' + categoria.id + ')";"><i class="gg-trash"></i></a><a onclick = "abrirCatModal(' + categoria.id + ')" class="editarCat" ;"><i class="gg-pen"></i></a></div></h2><hr><div id="productoCat' + categoria.id + '" class="menu-item"></div>' + botonNuevo + '</div></div>'
         listaDeCategorias += categoriaHtml + modalHtml;
     }
-
     /*ELementos del modal NUEVA CATEGORIA*/
     let inputNombre = '<div  class="input-group mb-3"><span class="input-group-text">Nombre de la categoría </span><input type="text" id="txtCatNombreNuevo" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"></div>'
     let btnCerrar = '<div class="btns-modal"><div class="boton-cerrar" id="btn-cerrar" onclick="cerrarCatNuevaModal()"><i class="bx bx-x"></i></div>'
@@ -69,10 +85,9 @@ async function cargarCategoriasHtml() {
         btnCerrar + '' +
         btnGuardar + '</div></div>'
 
-
-
     let btnNuevaCategoria = '<span style="display: flex;justify-content: center;">Nueva Categoria</span><a onclick ="abrirModalCategoriaNueva()" style="display: flex;justify-content: center;"><i class="gg-play-list-add"></i></a>' + modalNuevaCatHtml + ''
     document.querySelector('.col-xs-12 ,col-sm-6').outerHTML = listaDeCategorias + btnNuevaCategoria;
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function cargarProductosHtml() {
