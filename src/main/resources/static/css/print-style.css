@@ -67,3 +67,7 @@ body{
     color: white !important;
     font-weight: 600 !important;
 }
+
+#download-container{
+    display: none;
+}
